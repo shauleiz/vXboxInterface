@@ -1,4 +1,4 @@
-// Test-vXboxInterface.cpp : Defines the entry point for the console application.
+// Test.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -16,12 +16,10 @@ extern "C"
 #include <Dbt.h>
 #include <tchar.h>
 
-#include "..\..\..\..\inc\public.h"
-#include "..\vJoyInterface.h"
-#include "..\vXboxInterface.h"
+#include "..\API\vXboxInterface.h"
 
 #ifndef XBOX
-#pragma comment(lib, "vJoyInterface")
+#pragma comment(lib, "vXboxInterface")
 int main()
 {
 	BOOL res;
@@ -39,27 +37,6 @@ int main()
 		return -1;
 	}
 
-	res = AcquireVJD(1);
-	printf("\n\nAcquireVJD(%d): %d\n", 1, res);
-	//Sleep(500);
-
-	res = AcquireVJD(1);
-	printf("\n\nAcquireVJD(%d): %d\n", 1, res);
-	//Sleep(500);
-
-	res = AcquireVJD(1);
-	printf("\n\nAcquireVJD(%d): %d\n", 1, res);
-	//Sleep(500);
-
-	res = AcquireVJD(1);
-	printf("\n\nAcquireVJD(%d): %d\n", 1, res);
-	//Sleep(500);
-
-
-
-
-	printf("Press any key to continue \n");
-	getchar();
 
 
 
@@ -126,7 +103,7 @@ int main()
 	printf("Press any key to detect device feedback \n");
 	getchar();
 
-	WORD LeftMotor, RightMotor;
+	//WORD LeftMotor, RightMotor;
 	UCHAR Led;
 	BOOL Led_Ok, Vib_Ok;
 	XINPUT_VIBRATION Vib;

@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <crtdbg.h>
 #include <iostream>
+
 using namespace std;
 
 extern "C"
@@ -14,14 +15,14 @@ extern "C"
 
 #include <Dbt.h>
 #include <tchar.h>
-#include "vJoyInterface.h"
 #include "vXboxInterface.h"
 
 
+// Interface Functions
 extern "C"
 {
 
-	VJOYINTERFACE_API BOOL	__cdecl	 isVBusExists(void)
+	VXBOX_API BOOL	__cdecl	 isVBusExists(void)
 	{
 		TCHAR path[MAX_PATH];
 
@@ -33,7 +34,7 @@ extern "C"
 			return FALSE;
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 GetNumEmptyBusSlots(UCHAR * nSlots)
+	VXBOX_API BOOL	__cdecl	 GetNumEmptyBusSlots(UCHAR * nSlots)
 	{
 		UCHAR output[1];
 		DWORD trasfered = 0;
@@ -54,7 +55,7 @@ extern "C"
 		return FALSE;
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 isControllerExists(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 isControllerExists(UINT UserIndex)
 	{
 		BOOL out = FALSE;
 		ULONG buffer[1];
@@ -82,7 +83,7 @@ extern "C"
 		return out;
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 isControllerOwned(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 isControllerOwned(UINT UserIndex)
 	{
 		ULONG OrigProcID = 0;
 		ULONG ThisProcID = 0;
@@ -112,7 +113,7 @@ extern "C"
 
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 PlugIn(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 PlugIn(UINT UserIndex)
 	{
 		BOOL out = FALSE;
 
@@ -157,70 +158,70 @@ extern "C"
 		return out;
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 UnPlug(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 UnPlug(UINT UserIndex)
 	{
 		return UnPlug_Opt(UserIndex, FALSE);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 UnPlugForce(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 UnPlugForce(UINT UserIndex)
 	{
 		return UnPlug_Opt(UserIndex, TRUE);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetAxisX(UINT UserIndex, SHORT Value) // Left Stick X
+	VXBOX_API BOOL	__cdecl	 SetAxisX(UINT UserIndex, SHORT Value) // Left Stick X
 	{
 		g_Gamepad[UserIndex - 1].sThumbLX = Value;
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetAxisY(UINT UserIndex, SHORT Value) // Left Stick X
+	VXBOX_API BOOL	__cdecl	 SetAxisY(UINT UserIndex, SHORT Value) // Left Stick X
 	{
 		g_Gamepad[UserIndex - 1].sThumbLY = Value;
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetAxisRx(UINT UserIndex, SHORT Value) // Left Stick X
+	VXBOX_API BOOL	__cdecl	 SetAxisRx(UINT UserIndex, SHORT Value) // Left Stick X
 	{
 		g_Gamepad[UserIndex - 1].sThumbRX = Value;
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetAxisRy(UINT UserIndex, SHORT Value) // Left Stick X
+	VXBOX_API BOOL	__cdecl	 SetAxisRy(UINT UserIndex, SHORT Value) // Left Stick X
 	{
 		g_Gamepad[UserIndex - 1].sThumbRY = Value;
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadUp(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 SetDpadUp(UINT UserIndex)
 	{
 		return SetDpad(UserIndex, DPAD_UP);
 	}
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadRight(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 SetDpadRight(UINT UserIndex)
 	{
 		return SetDpad(UserIndex, DPAD_RIGHT);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadDown(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 SetDpadDown(UINT UserIndex)
 	{
 		return SetDpad(UserIndex, DPAD_DOWN);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadLeft(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 SetDpadLeft(UINT UserIndex)
 	{
 		return SetDpad(UserIndex, DPAD_LEFT);
 	}
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadOff(UINT UserIndex)
+	VXBOX_API BOOL	__cdecl	 SetDpadOff(UINT UserIndex)
 	{
 		return SetDpad(UserIndex, 0);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnA(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnA(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_A;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
 		g_Gamepad[UserIndex - 1].wButtons |= Btn*Press;
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnB(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnB(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_B;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
@@ -228,7 +229,7 @@ extern "C"
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnX(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnX(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_X;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
@@ -236,7 +237,7 @@ extern "C"
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnY(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnY(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_Y;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
@@ -244,7 +245,7 @@ extern "C"
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnStart(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnStart(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_START;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
@@ -252,7 +253,7 @@ extern "C"
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnBack(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnBack(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_BACK;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
@@ -260,7 +261,7 @@ extern "C"
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnLT(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnLT(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_LEFT_THUMB;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
@@ -268,7 +269,7 @@ extern "C"
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnRT(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnRT(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_RIGHT_THUMB;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
@@ -276,7 +277,7 @@ extern "C"
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnLB(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnLB(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_LEFT_SHOULDER;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
@@ -284,7 +285,7 @@ extern "C"
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnRB(UINT UserIndex, BOOL Press)
+	VXBOX_API BOOL	__cdecl	 SetBtnRB(UINT UserIndex, BOOL Press)
 	{
 		UINT Btn = XINPUT_GAMEPAD_RIGHT_SHOULDER;
 		g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
@@ -292,19 +293,19 @@ extern "C"
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetTriggerL(UINT UserIndex, BYTE Value) // Left Trigger
+	VXBOX_API BOOL	__cdecl	 SetTriggerL(UINT UserIndex, BYTE Value) // Left Trigger
 	{
 		g_Gamepad[UserIndex - 1].bLeftTrigger = Value;
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]); 
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 SetTriggerR(UINT UserIndex, BYTE Value) // Right Trigger
+	VXBOX_API BOOL	__cdecl	 SetTriggerR(UINT UserIndex, BYTE Value) // Right Trigger
 	{
 		g_Gamepad[UserIndex - 1].bRightTrigger = Value;
 		return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 	}
 
-	VJOYINTERFACE_API BOOL	__cdecl	 GetLedNumber(UINT UserIndex, PBYTE pLed)
+	VXBOX_API BOOL	__cdecl	 GetLedNumber(UINT UserIndex, PBYTE pLed)
 	{
 		BOOL ref = XOutputSetGetState(UserIndex, &g_Gamepad[UserIndex - 1], nullptr, nullptr, nullptr, pLed);
 		if (ref)
@@ -312,7 +313,7 @@ extern "C"
 		return ref;
 	}
 
-	VJOYINTERFACE_API BOOL GetVibration(UINT UserIndex, PXINPUT_VIBRATION pVib)
+	VXBOX_API BOOL GetVibration(UINT UserIndex, PXINPUT_VIBRATION pVib)
 	{
 		BYTE LargeMotor, SmallMotor, Vibrate;
 		BOOL ref = XOutputSetGetState(UserIndex, &g_Gamepad[UserIndex - 1], &Vibrate, &LargeMotor, &SmallMotor, nullptr);
@@ -332,399 +333,8 @@ extern "C"
 }
 
 
-#ifdef XBOX
-#pragma region Legacy Interface Functions
-/////	General driver data
-VJOYINTERFACE_API SHORT __cdecl GetvJoyVersion(void)
-{
-	// Hard-coded
-	return 0x216;
-}
-VJOYINTERFACE_API BOOL	__cdecl vJoyEnabled(void)
-{
-	return isVBusExists();
-}
-VJOYINTERFACE_API PVOID	__cdecl	GetvJoyProductString(void)
-{
-	// TODO: Hard Coded
-	return (PVOID)L"vXbox (Temporary version)";
-}
-VJOYINTERFACE_API PVOID	__cdecl	GetvJoyManufacturerString(void)
-{
-	// TODO: Hard Coded
-	return (PVOID)L"Shaul Eizikovich";
-}
-VJOYINTERFACE_API PVOID	__cdecl	GetvJoySerialNumberString(void)
-{
-	// TODO: Hard Coded
-	return (PVOID)L"2.1.6";
-}
-//VJOYINTERFACE_API BOOL	__cdecl	DriverMatch(WORD * DllVer, WORD * DrvVer);
-//VJOYINTERFACE_API VOID	__cdecl	RegisterRemovalCB(RemovalCB cb, PVOID data);
-VJOYINTERFACE_API BOOL	__cdecl	vJoyFfbCap(BOOL * Supported)	// Is this version of vJoy capable of FFB?
-{
-	*Supported = FALSE;
-	return TRUE;
-}
-VJOYINTERFACE_API BOOL	__cdecl	GetvJoyMaxDevices(int * n)	// What is the maximum possible number of vJoy devices
-{
-	return 4;
-}
-VJOYINTERFACE_API BOOL	__cdecl	GetNumberExistingVJD(int * n)	// What is the number of vJoy devices currently enabled
-{
-	UINT count = 0;
-	for (auto dev : g_vDevice)
-		if (dev)
-			count++;
-	*n = count;
-	return TRUE;
+/// Helper Functions
 
-}
-
-
-/////	vJoy Device properties
-VJOYINTERFACE_API int	__cdecl  GetVJDButtonNumber(UINT rID)	// Get the number of buttons defined in the specified VDJ
-{
-	return 10;
-}
-VJOYINTERFACE_API int	__cdecl  GetVJDDiscPovNumber(UINT rID)		  // Get the number of descrete-type POV hats defined in the specified VDJ
-{
-	return 1;
-}
-VJOYINTERFACE_API int	__cdecl  GetVJDContPovNumber(UINT rID)	// Get the number of descrete-type POV hats defined in the specified VDJ
-{
-	return 0;
-}
-VJOYINTERFACE_API BOOL	__cdecl  GetVJDAxisExist(UINT rID, UINT Axis) // Test if given axis defined in the specified VDJ
-{
-	switch (Axis)
-	{
-		case HID_USAGE_X:
-		case HID_USAGE_Y:
-		case HID_USAGE_RX:
-		case HID_USAGE_RY:
-			return TRUE;
-			break;
-		default:
-			return FALSE;
-	};
-}
-VJOYINTERFACE_API BOOL	__cdecl  GetVJDAxisMax(UINT rID, UINT Axis, LONG * Max) // Get logical Maximum value for a given axis defined in the specified VDJ
-{
-	switch (Axis)
-	{
-		case HID_USAGE_X:
-		case HID_USAGE_Y:
-		case HID_USAGE_RX:
-		case HID_USAGE_RY:
-			break;
-		default:
-			return FALSE;
-	};
-
-	*Max = AXIS_MAX;
-	return TRUE;
-
-}
-VJOYINTERFACE_API BOOL	__cdecl  GetVJDAxisMin(UINT rID, UINT Axis, LONG * Min) // Get logical Minimum value for a given axis defined in the specified VDJ
-{
-	switch (Axis)
-	{
-		case HID_USAGE_X:
-		case HID_USAGE_Y:
-		case HID_USAGE_RX:
-		case HID_USAGE_RY:
-			break;
-		default:
-			return FALSE;
-	};
-
-	*Min = AXIS_MIN;
-	return TRUE;
-}
-VJOYINTERFACE_API enum VjdStat	__cdecl	GetVJDStatus(UINT rID)			// Get the status of the specified vJoy Device.
-{
-	if (!isControllerExists(rID))
-		return VJD_STAT_MISS;
-
-	if (isControllerOwned(rID))
-		return 	VJD_STAT_OWN;
-	else
-		return VJD_STAT_BUSY;
-
-	return 	 VJD_STAT_UNKN;
-}
-VJOYINTERFACE_API BOOL		__cdecl	isVJDExists(UINT rID)					// TRUE if the specified vJoy Device exists
-{
-	return isControllerExists(rID);
-}																		
-
-/////	Write access to vJoy Device - Basic
-
-VJOYINTERFACE_API BOOL		__cdecl	AcquireVJD(UINT rID)				// Acquire the specified vJoy Device.
-{
-	BOOL res;
-
-	// If the device is owned by another application - unplug it
-	if (GetVJDStatus(rID) == VJD_STAT_BUSY)
-	{
-		res = UnPlug(rID);
-		if (!res)
-			return res;
-	}
-
-	// If the device does not exist - plug it in
- 	if (GetVJDStatus(rID) == VJD_STAT_FREE || GetVJDStatus(rID) == VJD_STAT_MISS)
-	{
-		res = PlugIn(rID);
-		if (!res)
-			return res;
-	}
-
-	// If device not Owned then it is a problem
-	if (GetVJDStatus(rID) != VJD_STAT_OWN)
-		return 	FALSE;
-
-	return TRUE;
-}
-
-VJOYINTERFACE_API VOID		__cdecl	RelinquishVJD(UINT rID)			// Relinquish the specified vJoy Device.
-{
-	UnPlug(rID);
-}
-																		
-
-//// Reset functions
-VJOYINTERFACE_API BOOL		__cdecl	ResetVJD(UINT rID)			// Reset all controls to predefined values in the specified VDJ
-{
-	XINPUT_GAMEPAD Gamepad;
-
-	// Init
-	memset(&Gamepad, 0, sizeof(XINPUT_GAMEPAD));
-
-	// Send joystick position structure to vJoy device
-	return  XOutputSetState(rID, &Gamepad);
-
-}
-VJOYINTERFACE_API VOID		__cdecl	ResetAll(void)				// Reset all controls to predefined values in all VDJ
-{
-	ResetVJD(1);
-	ResetVJD(2);
-	ResetVJD(3);
-	ResetVJD(4);
-}
-VJOYINTERFACE_API BOOL		__cdecl	ResetButtons(UINT rID)		// Reset all buttons (To 0) in the specified VDJ
-{
-	g_Gamepad[rID].wButtons &= 0x000F;
-	// Send joystick position structure to vJoy device
-	return  XOutputSetState(rID, &g_Gamepad[rID]);
-}
-VJOYINTERFACE_API BOOL		__cdecl	ResetPovs(UINT rID)		// Reset all POV Switches (To -1) in the specified VDJ
-{
-	g_Gamepad[rID].wButtons &= 0xFFF0;
-	// Send joystick position structure to vJoy device
-	return  XOutputSetState(rID, &g_Gamepad[rID]);
-
-}
-
-// Write data
-VJOYINTERFACE_API BOOL		__cdecl	UpdateVJD(UINT rID, PVOID pData)	// Update the position data of the specified vJoy Device.
-{    
-	PJOYSTICK_POSITION_V2 pJoyPos = (PJOYSTICK_POSITION_V2)pData;
-	XINPUT_GAMEPAD Gamepad;
-	
-	// Init
-	memset(&Gamepad, 0, sizeof(XINPUT_GAMEPAD));
-
-
-	/////  Axes
-	Gamepad.sThumbLX = 2*(pJoyPos->wAxisX-1) - 32767;
-	Gamepad.sThumbLY = 2*(pJoyPos->wAxisY - 1) - 32767;
-	Gamepad.sThumbRX = 2*(pJoyPos->wAxisXRot - 1) - 32767;
-	Gamepad.sThumbRY = 2*(pJoyPos->wAxisYRot - 1) - 32767;
-	Gamepad.bLeftTrigger = (pJoyPos->wAxisZRot - 1) / 128;
-	Gamepad.bRightTrigger = (pJoyPos->wAxisZ - 1) / 128;
-
-	//// Buttons
-	// Button 1 ==> Button A
-	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 1, XINPUT_GAMEPAD_A);
-	// Button 2 ==> Button B
-	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 2, XINPUT_GAMEPAD_B);
- 	// Button 3  ==> Button X
- 	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 3, XINPUT_GAMEPAD_X);
-	// Button 4  ==> Button Y
- 	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 4, XINPUT_GAMEPAD_Y);
-	// Button 5  ==> Button LB (Left Bumper)
- 	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 5, XINPUT_GAMEPAD_LEFT_SHOULDER);
-	// Button 6  ==> Button RB (Right Bumper)
- 	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 6, XINPUT_GAMEPAD_RIGHT_SHOULDER);
-	// Button 7  ==> Back
- 	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 7, XINPUT_GAMEPAD_BACK);
-	// Button 8  ==> Start
- 	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 8, XINPUT_GAMEPAD_START);
-	// Button 9  ==> Button LSB (Left Stick Button)
- 	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 9, XINPUT_GAMEPAD_LEFT_THUMB);
-	// Button 10 ==> Button RSB (Right Stick Button)
- 	Gamepad.wButtons = ConvertButton(pJoyPos->lButtons, Gamepad.wButtons, 10, XINPUT_GAMEPAD_RIGHT_THUMB);
-
-	// Dpad / Discrete POV #1
-	switch (pJoyPos->bHats)
-	{
-		case 0:
-			Gamepad.wButtons |= XINPUT_GAMEPAD_DPAD_UP;
-			break;
-		case 1:
-			Gamepad.wButtons |= XINPUT_GAMEPAD_DPAD_RIGHT;
-			break;
-		case 2:
-			Gamepad.wButtons |= XINPUT_GAMEPAD_DPAD_DOWN;
-			break;
-		case 4:
-			Gamepad.wButtons |= XINPUT_GAMEPAD_DPAD_LEFT;
-			break;
-		default:
-			Gamepad.wButtons &= 0xFFF0;
-	}
-
-
-	// Send joystick position structure to vJoy device
-	return  XOutputSetState(rID, &Gamepad);
-}
-VJOYINTERFACE_API BOOL		__cdecl	SetAxis(LONG Value, UINT rID, UINT Axis)		// Write Value to a given axis defined in the specified VDJ 
-{
-	LONG NormVal = 2 * (Value-1) - 32767;
-	BYTE TrigVal = (Value-1) / 128;
-
-	switch (Axis) 
-	{
-		case HID_USAGE_X:
-			SetAxisX(rID, NormVal);
-			break;
-		case HID_USAGE_Y:
-			SetAxisY(rID, NormVal);
-			break;
-		case HID_USAGE_RX:
-			SetAxisRx(rID, NormVal);
-			break;
-		case HID_USAGE_RY:
-			SetAxisRy(rID, NormVal);
-			break;
-		case HID_USAGE_Z:
-			SetTriggerR(rID, TrigVal);
-			break;
-		case HID_USAGE_RZ:
-			SetTriggerL(rID, TrigVal);
-			break;
-		default:
-			return FALSE;
-	}
-
-	return TRUE;
-}
-VJOYINTERFACE_API BOOL		__cdecl	SetBtn(BOOL Value, UINT rID, UCHAR nBtn)		// Write Value to a given button defined in the specified VDJ 
-{
-	switch (nBtn)
-	{
-		case 1:
-			SetBtnA(rID, Value);
-			break;
-		case 2:
-			SetBtnB(rID, Value);
-			break;
-		case 3:
-			SetBtnX(rID, Value);
-			break;
-		case 4:
-			SetBtnY(rID, Value);
-			break;
-		case 5:
-			SetBtnLB(rID, Value);
-			break;
-		case 6:
-			SetBtnRB(rID, Value);
-			break;
-		case 7:
-			SetBtnBack(rID, Value);
-			break;
-		case 8:
-			SetBtnStart(rID, Value);
-			break;
-		case 9:
-			SetBtnLT(rID, Value);
-			break;
-		case 10:
-			SetBtnRT(rID, Value);
-			break;
-
-		default:
-			return FALSE;
-	}
-
-	return TRUE;
-}
-VJOYINTERFACE_API BOOL		__cdecl	SetDiscPov(int Value, UINT rID, UCHAR nPov)	// Write Value to a given descrete POV defined in the specified VDJ 
-{
-	if (nPov != 1)
-		return FALSE;
-
-	switch (Value)
-	{
-		case 0:
-			SetDpadUp(rID);
-			break;
-		case 1:
-			SetDpadRight(rID);
-			break;
-		case 2:
-			SetDpadDown(rID);
-			break;
-		case 3:
-			SetDpadLeft(rID);
-			break;
-		case 0xF:
-		case -1:
-			SetDpadOff(rID);
-			break;
-
-		default:
-			return FALSE;
-	}
-
-	return TRUE;
-}
-VJOYINTERFACE_API BOOL		__cdecl	SetContPov(DWORD Value, UINT rID, UCHAR nPov)	// Write Value to a given continuous POV defined in the specified VDJ 
-{
-	if (nPov != 1)
-		return FALSE;
-
-	if (Value >= 31500 || Value < 4500)
-		return SetDpadUp(rID);
-	if (Value >= 4500 || Value < 13500)
-		return SetDpadRight(rID);
-	if (Value >= 13500 || Value < 22500)
-		return SetDpadUp(rID);
-	if (Value >= 22500 || Value < 31500)
-		return SetDpadRight(rID);
-
-	return SetDpadOff(rID);
-
-
-}
-
-#pragma endregion
-#endif // XBOX
-
-
-///-------------------------------------------------------------------------------------------------
-/// <summary>	Output set state. </summary>
-///
-/// <remarks>	Benjamin, 15.03.2016. </remarks>
-///
-/// <param name="dwUserIndex">	Zero-based index of the user. </param>
-/// <param name="pGamepad">	  	[in,out] If non-null, the state. </param>
-///
-/// <returns>	A DWORD. </returns>
-///-------------------------------------------------------------------------------------------------
 BOOL XOutputSetState(DWORD UserIndex, XINPUT_GAMEPAD* pGamepad)
 {
 	{
@@ -860,18 +470,6 @@ BOOL GetCreateProcID(DWORD UserIndex, PULONG ProcID)
 
 }
 
-///-------------------------------------------------------------------------------------------------
-/// <summary>	Get Device Interface path. </summary>
-///
-/// <remarks>	Shaul, 17.03.2016. </remarks>
-///
-/// <param name="path">	Pointer to the output buffer holding the Device Interface path string. </param>
-/// <param name="size">	Size of the output buffer in WCHARs.</param>
-///
-/// <returns>	If sucessful: Size of the the path in WCHARs
-///             Negative number indicates failure.</returns>
-/// 
-///-------------------------------------------------------------------------------------------------
 int GetVXbusPath(LPCTSTR path, UINT size)
 {
 	SP_DEVICE_INTERFACE_DATA deviceInterfaceData = {};

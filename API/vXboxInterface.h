@@ -1,6 +1,12 @@
 #pragma once
 #include <Xinput.h>
 
+#ifdef VXBOX_EXPORTS
+#define VXBOX_API __declspec(dllexport)
+#else
+#define VXBOX_API __declspec(dllimport)
+#endif
+
 //////////// Definitions /////////////////////////
 
 typedef struct _BUSENUM_UNPLUG_HARDWARE {
@@ -70,43 +76,43 @@ extern "C"
 {
 
 	/// Status
-	VJOYINTERFACE_API BOOL	__cdecl	 isVBusExists(void);
-	VJOYINTERFACE_API BOOL	__cdecl	 GetNumEmptyBusSlots(UCHAR * nSlots);
-	VJOYINTERFACE_API BOOL	__cdecl	 isControllerExists(UINT UserIndex);
-	VJOYINTERFACE_API BOOL	__cdecl	 isControllerOwned(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 isVBusExists(void);
+	VXBOX_API BOOL	__cdecl	 GetNumEmptyBusSlots(UCHAR * nSlots);
+	VXBOX_API BOOL	__cdecl	 isControllerExists(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 isControllerOwned(UINT UserIndex);
 
 
 	// Virtual device Plug-In/Unplug
-	VJOYINTERFACE_API BOOL	__cdecl	 PlugIn(UINT UserIndex);
-	VJOYINTERFACE_API BOOL	__cdecl	 UnPlug(UINT UserIndex);
-	VJOYINTERFACE_API BOOL	__cdecl	 UnPlugForce(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 PlugIn(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 UnPlug(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 UnPlugForce(UINT UserIndex);
 
 	// Data Transfer (Data to the device)
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnA(UINT UserIndex, BOOL Press);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnB(UINT UserIndex, BOOL Press);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnX(UINT UserIndex, BOOL Press);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnY(UINT UserIndex, BOOL Press);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnStart(UINT UserIndex, BOOL Press);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnBack(UINT UserIndex, BOOL Press);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnLT(UINT UserIndex, BOOL Press); // Left Thumb/Stick
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnRT(UINT UserIndex, BOOL Press); // Right Thumb/Stick
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnLB(UINT UserIndex, BOOL Press); // Left Bumper
-	VJOYINTERFACE_API BOOL	__cdecl	 SetBtnRB(UINT UserIndex, BOOL Press); // Right Bumper
- 	VJOYINTERFACE_API BOOL	__cdecl	 SetTriggerL(UINT UserIndex, BYTE Value); // Left Trigger
- 	VJOYINTERFACE_API BOOL	__cdecl	 SetTriggerR(UINT UserIndex, BYTE Value); // Right Trigger
-	VJOYINTERFACE_API BOOL	__cdecl	 SetAxisX(UINT UserIndex, SHORT Value); // Left Stick X
-	VJOYINTERFACE_API BOOL	__cdecl	 SetAxisY(UINT UserIndex, SHORT Value); // Left Stick Y
-	VJOYINTERFACE_API BOOL	__cdecl	 SetAxisRx(UINT UserIndex, SHORT Value); // Right Stick X
-	VJOYINTERFACE_API BOOL	__cdecl	 SetAxisRy(UINT UserIndex, SHORT Value); // Right Stick Y
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadUp(UINT UserIndex);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadRight(UINT UserIndex);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadDown(UINT UserIndex);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadLeft(UINT UserIndex);
-	VJOYINTERFACE_API BOOL	__cdecl	 SetDpadOff(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 SetBtnA(UINT UserIndex, BOOL Press);
+	VXBOX_API BOOL	__cdecl	 SetBtnB(UINT UserIndex, BOOL Press);
+	VXBOX_API BOOL	__cdecl	 SetBtnX(UINT UserIndex, BOOL Press);
+	VXBOX_API BOOL	__cdecl	 SetBtnY(UINT UserIndex, BOOL Press);
+	VXBOX_API BOOL	__cdecl	 SetBtnStart(UINT UserIndex, BOOL Press);
+	VXBOX_API BOOL	__cdecl	 SetBtnBack(UINT UserIndex, BOOL Press);
+	VXBOX_API BOOL	__cdecl	 SetBtnLT(UINT UserIndex, BOOL Press); // Left Thumb/Stick
+	VXBOX_API BOOL	__cdecl	 SetBtnRT(UINT UserIndex, BOOL Press); // Right Thumb/Stick
+	VXBOX_API BOOL	__cdecl	 SetBtnLB(UINT UserIndex, BOOL Press); // Left Bumper
+	VXBOX_API BOOL	__cdecl	 SetBtnRB(UINT UserIndex, BOOL Press); // Right Bumper
+ 	VXBOX_API BOOL	__cdecl	 SetTriggerL(UINT UserIndex, BYTE Value); // Left Trigger
+ 	VXBOX_API BOOL	__cdecl	 SetTriggerR(UINT UserIndex, BYTE Value); // Right Trigger
+	VXBOX_API BOOL	__cdecl	 SetAxisX(UINT UserIndex, SHORT Value); // Left Stick X
+	VXBOX_API BOOL	__cdecl	 SetAxisY(UINT UserIndex, SHORT Value); // Left Stick Y
+	VXBOX_API BOOL	__cdecl	 SetAxisRx(UINT UserIndex, SHORT Value); // Right Stick X
+	VXBOX_API BOOL	__cdecl	 SetAxisRy(UINT UserIndex, SHORT Value); // Right Stick Y
+	VXBOX_API BOOL	__cdecl	 SetDpadUp(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 SetDpadRight(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 SetDpadDown(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 SetDpadLeft(UINT UserIndex);
+	VXBOX_API BOOL	__cdecl	 SetDpadOff(UINT UserIndex);
 
 	// Data Transfer (Feedback from the device)
-	VJOYINTERFACE_API BOOL	__cdecl	 GetLedNumber(UINT UserIndex, PBYTE pLed);
-	VJOYINTERFACE_API BOOL	__cdecl	 GetVibration(UINT UserIndex, PXINPUT_VIBRATION pVib);
+	VXBOX_API BOOL	__cdecl	 GetLedNumber(UINT UserIndex, PBYTE pLed);
+	VXBOX_API BOOL	__cdecl	 GetVibration(UINT UserIndex, PXINPUT_VIBRATION pVib);
 
 }  // extern "C"
 
