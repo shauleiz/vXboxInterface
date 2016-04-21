@@ -310,7 +310,7 @@ extern "C"
 	{
 		BOOL ref = XOutputSetGetState(UserIndex, &g_Gamepad[UserIndex - 1], nullptr, nullptr, nullptr, pLed);
 		if (ref)
-			*pLed++;
+			(*pLed)++;
 		return ref;
 	}
 
