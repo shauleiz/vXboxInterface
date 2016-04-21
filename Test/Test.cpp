@@ -2,19 +2,8 @@
 //
 
 #include "stdafx.h"
+#include "windows.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <crtdbg.h>
-
-extern "C"
-{
-#include <setupapi.h>
-#include <Hidsdi.h>
-}
-
-#include <Dbt.h>
-#include <tchar.h>
 
 #include "..\API\vXboxInterface.h"
 

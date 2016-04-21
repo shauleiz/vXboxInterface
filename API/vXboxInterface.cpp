@@ -15,6 +15,7 @@ extern "C"
 
 #include <Dbt.h>
 #include <tchar.h>
+#include "vXboxApi.h"
 #include "vXboxInterface.h"
 
 
