@@ -77,6 +77,9 @@ int main()
 				SetDpadLeft(1);
 				break;
 			case 80:
+				SetDpad(1, DPAD_UP|DPAD_RIGHT);
+				break;
+			case 99:
 				SetDpadOff(1);
 				SetBtnA(1, TRUE);
 				break;

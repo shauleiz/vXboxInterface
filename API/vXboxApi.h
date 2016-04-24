@@ -30,12 +30,6 @@ DEFINE_GUID(GUID_DEVINTERFACE_SCPVBUS, 0xf679f562, 0x3164, 0x42ce, 0xa4, 0xdb, 0
 #define FEEDBACK_BUFFER_LENGTH 9
 #define MAX_NUMBER_XBOX_CTRLS 4
 
-#define DPAD_UP XINPUT_GAMEPAD_DPAD_UP
-#define DPAD_DOWN XINPUT_GAMEPAD_DPAD_DOWN
-#define DPAD_LEFT XINPUT_GAMEPAD_DPAD_LEFT
-#define DPAD_RIGHT XINPUT_GAMEPAD_DPAD_RIGHT
-#define DPAD_OFF 0
-
 #define AXIS_MAX	32767
 #define AXIS_MIN	-32768
 
@@ -124,6 +118,5 @@ HANDLE GetVXbusHandle(void);
 BOOL GetCreateProcID(DWORD UserIndex, PULONG ProcID);
 BOOL XOutputSetState(DWORD UserIndex, XINPUT_GAMEPAD* pGamepad);
 BOOL XOutputSetGetState(DWORD UserIndex, XINPUT_GAMEPAD* pGamepad, PBYTE bVibrate, PBYTE bLargeMotor, PBYTE bSmallMotor, PBYTE bLed);
-BOOL SetDpad(UINT UserIndex, INT Value);
 WORD ConvertButton(LONG vBtns, WORD xBtns, UINT vBtn, UINT xBtn);
 BOOL UnPlug_Opt(UINT UserIndex, BOOL Force);

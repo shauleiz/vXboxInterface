@@ -4,6 +4,13 @@
 #define VXBOX_API __declspec(dllimport)
 #endif
 
+#define DPAD_UP XINPUT_GAMEPAD_DPAD_UP
+#define DPAD_DOWN XINPUT_GAMEPAD_DPAD_DOWN
+#define DPAD_LEFT XINPUT_GAMEPAD_DPAD_LEFT
+#define DPAD_RIGHT XINPUT_GAMEPAD_DPAD_RIGHT
+#define DPAD_OFF 0
+
+
 //////////// Interface Functions /////////////////////////
 extern "C"
 {
@@ -42,6 +49,7 @@ extern "C"
 	VXBOX_API BOOL	__cdecl	 SetDpadDown(UINT UserIndex);
 	VXBOX_API BOOL	__cdecl	 SetDpadLeft(UINT UserIndex);
 	VXBOX_API BOOL	__cdecl	 SetDpadOff(UINT UserIndex);
+	VXBOX_API BOOL __cdecl	 SetDpad(UINT UserIndex, INT Value);
 
 	// Data Transfer (Feedback from the device)
 	VXBOX_API BOOL	__cdecl	 GetLedNumber(UINT UserIndex, PBYTE pLed);
