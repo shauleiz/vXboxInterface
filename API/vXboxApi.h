@@ -1,8 +1,10 @@
 #pragma once
 #include <Xinput.h>
 
-#ifdef VXBOX_EXPORTS
+#ifdef DYNAMIC_LIB
 #define VXBOX_API __declspec(dllexport)
+#elif  defined(STATIC_LIB)
+#define VXBOX_API
 #else
 #define VXBOX_API __declspec(dllimport)
 #endif

@@ -9,6 +9,8 @@
 
 #ifndef XBOX
 #pragma comment(lib, "vXboxInterface")
+//#pragma comment(lib, "vXboxInterface-Static")
+
 int main()
 {
 	BOOL res;
@@ -16,7 +18,7 @@ int main()
 
 
 	// Test if bus exists
-	BOOL bus =	 isVBusExists();
+	BOOL bus = isVBusExists();
 	if (bus)
 		printf("Virtual Xbox bus exists\n\n");
 	else

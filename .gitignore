@@ -237,3 +237,4 @@ _Pvt_Extensions
 *.db
 API/ReadMe.txt
 Test/Test-vXboxInterface.sln
+API/vXboxInterface-Static/ReadMe.txt

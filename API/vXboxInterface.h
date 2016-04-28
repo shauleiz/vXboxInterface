@@ -1,6 +1,6 @@
 #include <Xinput.h>
 
-#ifndef VXBOX_API
+#if !defined(DYNAMIC_LIB) && !defined(STATIC_LIB)
 #define VXBOX_API __declspec(dllimport)
 #endif
 
@@ -10,10 +10,15 @@
 #define DPAD_RIGHT XINPUT_GAMEPAD_DPAD_RIGHT
 #define DPAD_OFF 0
 
-
+#ifdef STATIC_LIB
+#undef VXBOX_API
+#define VXBOX_API
+namespace vXboxNS {
 //////////// Interface Functions /////////////////////////
+#else
 extern "C"
 {
+#endif // TARGET== STATIC_LIB
 
 	/// Status
 	VXBOX_API BOOL	__cdecl	 isVBusExists(void);
@@ -55,4 +60,8 @@ extern "C"
 	VXBOX_API BOOL	__cdecl	 GetLedNumber(UINT UserIndex, PBYTE pLed);
 	VXBOX_API BOOL	__cdecl	 GetVibration(UINT UserIndex, PXINPUT_VIBRATION pVib);
 
+#ifndef STATIC_LIB
 }  // extern "C"
+#else
+}
+#endif // TARGET== STATIC_LIB
