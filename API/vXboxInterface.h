@@ -10,6 +10,8 @@
 #define DPAD_RIGHT XINPUT_GAMEPAD_DPAD_RIGHT
 #define DPAD_OFF 0
 
+#define XINPUT_GAMEPAD_GUIDE 0x0400 // Undocumanted Guide button
+
 #ifdef STATIC_LIB
 #undef VXBOX_API
 #define VXBOX_API
@@ -43,7 +45,8 @@ extern "C"
 	VXBOX_API BOOL	__cdecl	 SetBtnRT(UINT UserIndex, BOOL Press); // Right Thumb/Stick
 	VXBOX_API BOOL	__cdecl	 SetBtnLB(UINT UserIndex, BOOL Press); // Left Bumper
 	VXBOX_API BOOL	__cdecl	 SetBtnRB(UINT UserIndex, BOOL Press); // Right Bumper
- 	VXBOX_API BOOL	__cdecl	 SetTriggerL(UINT UserIndex, BYTE Value); // Left Trigger
+	VXBOX_API BOOL	__cdecl	 SetBtnGD(UINT UserIndex, BOOL Press); // Guide Button (Undocumanted)
+	VXBOX_API BOOL	__cdecl	 SetTriggerL(UINT UserIndex, BYTE Value); // Left Trigger
  	VXBOX_API BOOL	__cdecl	 SetTriggerR(UINT UserIndex, BYTE Value); // Right Trigger
 	VXBOX_API BOOL	__cdecl	 SetAxisX(UINT UserIndex, SHORT Value); // Left Stick X
 	VXBOX_API BOOL	__cdecl	 SetAxisY(UINT UserIndex, SHORT Value); // Left Stick Y

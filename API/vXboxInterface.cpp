@@ -308,6 +308,15 @@ namespace vXboxNS {
 			return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
 		}
 
+		VXBOX_API BOOL	__cdecl	 SetBtnGD(UINT UserIndex, BOOL Press)
+		{
+			UINT Btn = XINPUT_GAMEPAD_GUIDE;
+			g_Gamepad[UserIndex - 1].wButtons &= ~Btn;
+			g_Gamepad[UserIndex - 1].wButtons |= Btn*Press;
+			return XOutputSetState(UserIndex, &g_Gamepad[UserIndex - 1]);
+		}
+
+
 		VXBOX_API BOOL	__cdecl	 SetTriggerL(UINT UserIndex, BYTE Value) // Left Trigger
 		{
 			g_Gamepad[UserIndex - 1].bLeftTrigger = Value;
